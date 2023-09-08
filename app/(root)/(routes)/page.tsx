@@ -1,15 +1,44 @@
 import { Categories } from "@/components/Categories";
 import { Navbar } from "@/components/Navbar";
+import Personas from "@/components/Personas";
 import { SearchInput } from "@/components/SearchInput";
 import prismadb from "@/lib/prismadb";
 
-const Main = async () => {
+interface RootPageProps {
+  searchParams: {
+    categoryId: string;
+    name: string;
+  };
+}
+
+const Main = async ({ searchParams }: RootPageProps) => {
+  const data = await prismadb.persona.findMany({
+    where: {
+      categoryId: searchParams.categoryId,
+      name: {
+        search: searchParams.name,
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+
+    include: {
+      _count: {
+        select: {
+          messages: true,
+        },
+      },
+    },
+  });
+
   const categories = await prismadb.category.findMany();
 
   return (
     <div className="h-full p-4 space-y-2">
       <SearchInput />
       <Categories data={categories} />
+      <Personas data={data} />
     </div>
   );
 };
