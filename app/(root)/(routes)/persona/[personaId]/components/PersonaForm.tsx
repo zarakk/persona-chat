@@ -26,6 +26,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { PREAMBLE, SEED_CHAT } from "@/constants/constants";
 import { Button } from "@/components/ui/button";
 import { Wand2 } from "lucide-react";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 interface PersonaFormProps {
   initialData: Persona | null;
   categories: Category[];
@@ -45,6 +48,8 @@ const formSchema = z.object({
 });
 
 const PersonaForm = ({ initialData, categories }: PersonaFormProps) => {
+  const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -60,8 +65,22 @@ const PersonaForm = ({ initialData, categories }: PersonaFormProps) => {
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    try {
+      if (initialData) {
+        //update funciton
+        await axios.patch(`/api/persona/${initialData.id}`, values);
+      } else {
+        //create function
+        await axios.post("/api/persona", values);
+      }
+      toast({ description: "Success" });
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      toast({ variant: "destructive", description: "Something went wrong" });
+    }
   };
+
   return (
     <div className="h-full p-4 space-y-2 max-x-3xl mx-auto">
       <Form {...form}>
