@@ -1,8 +1,11 @@
 import prismadb from "@/lib/prismadb";
 import { currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+interface Params {
+  personaId: string;
+}
 
-export async function PATCH(req: Request, { params }: { personaId: string }) {
+export async function PATCH(req: Request, { params }: { params: Params }) {
   try {
     const body = await req.json();
     const user = await currentUser();
