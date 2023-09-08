@@ -26,6 +26,7 @@ export async function PATCH(req: Request, { params }: { params: Params }) {
     const persona = await prismadb.persona.update({
       where: {
         id: params.personaId,
+        userId: user.id,
       },
       data: {
         categoryId,

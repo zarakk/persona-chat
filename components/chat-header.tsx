@@ -37,6 +37,9 @@ const ChatHeader = ({ persona }: ChatHeaderProps) => {
     try {
       await axios.delete(`/api/persona/${persona.id}`);
       toast({ description: "Success" });
+
+      router.refresh();
+      router.push("/");
     } catch (error) {
       toast({ description: "Something went wrong", variant: "destructive" });
     }
