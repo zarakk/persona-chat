@@ -2,7 +2,7 @@ import { MemoryManager } from "@/lib/memory";
 import prismadb from "@/lib/prismadb";
 import { rateLimit } from "@/lib/rate-limit";
 import { auth, currentUser } from "@clerk/nextjs";
-import { LangChainStream, ReplicateStream, StreamingTextResponse } from "ai";
+import { LangChainStream, StreamingTextResponse } from "ai";
 import { CallbackManager } from "langchain/dist/callbacks/manager";
 import { Replicate } from "langchain/llms/replicate";
 
