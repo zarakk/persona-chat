@@ -3,7 +3,7 @@ import prismadb from "@/lib/prismadb";
 import { rateLimit } from "@/lib/rate-limit";
 import { auth, currentUser } from "@clerk/nextjs";
 import { LangChainStream, StreamingTextResponse } from "ai";
-import { CallbackManager } from "langchain/dist/callbacks/manager";
+import { CallbackManager } from "langchain/callbacks";
 import { Replicate } from "langchain/llms/replicate";
 
 import { NextResponse } from "next/server";
