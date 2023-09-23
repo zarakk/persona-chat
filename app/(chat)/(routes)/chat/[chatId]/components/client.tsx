@@ -48,7 +48,7 @@ const ChatClient = ({ persona }: ChatClientProps) => {
     handleSubmit(e);
   };
   return (
-    <div className="flex flex-col h-full p-4 space-y-2">
+    <div className="flex flex-col h-screen p-4 space-y-2">
       <ChatHeader persona={persona} />
       <ChatMessages
         persona={persona}

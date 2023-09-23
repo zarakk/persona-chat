@@ -43,8 +43,8 @@ const formSchema = z.object({
   seed: z
     .string()
     .min(200, { message: "Seed require at least 200 characters." }),
-  src: z.string().min(200, { message: "Image is required." }),
-  categoryId: z.string().min(200, { message: "Category is required." }),
+  src: z.any(),
+  categoryId: z.any(),
 });
 
 const PersonaForm = ({ initialData, categories }: PersonaFormProps) => {
@@ -88,7 +88,7 @@ const PersonaForm = ({ initialData, categories }: PersonaFormProps) => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-8 pb-10"
         >
-          <div className="space-y-2 w-full ">
+          <div className="space-y-2 w-full">
             <div>
               <h3 className="text-lg font-medium">General Information</h3>
               <p className="text-sm text-muted-foreground">

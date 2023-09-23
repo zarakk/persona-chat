@@ -17,8 +17,9 @@ export class MemoryManager {
   public constructor() {
     this.history = Redis.fromEnv();
     this.vectorDBClient = new Pinecone({
+      environment: "gcp-starter",
       apiKey: process.env.PINECONE_API_KEY!,
-      environment: process.env.PINECONE_ENVIRONMENT!,
+      // process.env.PINECONE_ENVIRONMENT!,
     });
   }
 
